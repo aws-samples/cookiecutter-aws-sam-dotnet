@@ -1,0 +1,51 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+    {{ cookiecutter.project_name }}
+    
+    {{ cookiecutter.project_short_description }}
+
+# More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
+Globals:
+    Function:
+        Runtime: dotnetcore2.1
+        Timeout: 10
+{%- if cookiecutter.include_safe_deployment == "y" %}
+        AutoPublishAlias: live # More info about Safe Deployments: https://github.com/awslabs/serverless-application-model/blob/master/docs/safe_lambda_deployments.rst
+        DeploymentPreference:
+            Type: Linear10PercentEvery1Minute {% endif %}
+
+Resources:
+
+    {{ cookiecutter.project_name }}Function:
+        Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+        Properties:
+            CodeUri: ./artifacts/{{ cookiecutter.project_name }}.zip
+            Handler: {{ cookiecutter.project_name }}::{{ cookiecutter.project_name }}.Function::FunctionHandler
+            Environment: # More info about Env Vars: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#environment-object
+                Variables:
+                    PARAM1: VALUE
+{%- if cookiecutter.include_xray == "y" %}
+            Tracing: Active {% endif %} # https://docs.aws.amazon.com/lambda/latest/dg/lambda-x-ray.html
+{%- if cookiecutter.include_apigw == "y" %}
+            Events:
+                CatchAll:
+                    Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+                    Properties:
+                        Path: /{proxy+}
+                        Method: any {% endif %}
+
+Outputs:
+{% if cookiecutter.include_apigw == "y"%}
+    {{ cookiecutter.project_name }}URL:
+      Description: "API Gateway endpoint URL for Prod environment for {{ cookiecutter.project_name }} Function"
+      Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/proxy"
+{%- endif %}
+
+    {{ cookiecutter.project_name }}Arn:
+      Description: "{{ cookiecutter.project_name }} Lambda Function ARN"
+      Value: !GetAtt FirstFunction.Arn
+
+    {{ cookiecutter.project_name }}IamRole:
+      Description: "Implicit IAM Role created for {{ cookiecutter.project_name }} function"
+      Value: !GetAtt {{ cookiecutter.project_name }}Role.Arn
