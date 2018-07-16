@@ -44,7 +44,7 @@ Outputs:
 
     {{ cookiecutter.project_name }}Arn:
       Description: "{{ cookiecutter.project_name }} Lambda Function ARN"
-      Value: !GetAtt FirstFunction.Arn
+      Value: !GetAtt {{ cookiecutter.project_name }}.Arn
 
     {{ cookiecutter.project_name }}IamRole:
       Description: "Implicit IAM Role created for {{ cookiecutter.project_name }} function"
