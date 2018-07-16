@@ -33,12 +33,7 @@ namespace {{ cookiecutter.project_name }}
 
         public APIGatewayProxyResponse FunctionHandler(APIGatewayProxyRequest apigProxyEvent, ILambdaContext context)
         {
-            {%- if cookiecutter.include_xray == "y" %}
-            var recorder = new AWSXRayRecorder();
-            recorder.BeginSubsegment("Creating Table");{% endif %}
             var location = GetCallingIP().Result;
-            {%- if cookiecutter.include_xray == "y" %}
-            recorder.EndSubsegment();{% endif %}
             
             var body = new Dictionary<string, string>
             {
