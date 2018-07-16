@@ -28,7 +28,7 @@ namespace {{ cookiecutter.project_name }}.Tests
             var response = function.FunctionHandler(request, context);
             
             Assert.Equal(200, response.StatusCode);
-            Assert.Equal("Hello AWS Serverless", response.Body);
+            Assert.StartsWith("{\"message\":\"hello world\",\"location\":", response.Body);
         }
     }
 }
