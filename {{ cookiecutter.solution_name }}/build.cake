@@ -137,7 +137,7 @@ Task("Test-Unit")
             NoBuild = true
         };
         
-        var projectFiles = GetFiles("./test/**/*.csproj");
+        var projectFiles = GetFiles("./**/*Tests.csproj");
         foreach(var file in projectFiles)
         {
             Information("Testing '{0}'...", file);
