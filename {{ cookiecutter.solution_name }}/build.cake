@@ -205,7 +205,7 @@ Task("Run-Local")
     {
         var settings = new ProcessSettings
         { 
-            Arguments = "local invoke \"HelloWorld\" -e event.json",
+            Arguments = "local invoke \"{{ cookiecutter.project_name }}Function\" -e event.json",
         };
         
         Information("Starting the SAM local...");
