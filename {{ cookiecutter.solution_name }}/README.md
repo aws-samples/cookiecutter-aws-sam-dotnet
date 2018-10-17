@@ -10,24 +10,22 @@
 * [Docker](https://www.docker.com/community-edition) installed
 
 
-## Recommended Tools for Visual Studio Users
+## Recommended Tools for Visual Studio / Visual Studio Code Users
 
 * [AWS Toolkit for Visual Studio](https://aws.amazon.com/visualstudio/)
-* [Amazon.Lambda.Tools](https://github.com/aws/aws-lambda-dotnet#amazonlambdatools). See also [AWS Extensions for .NET CLI ](https://github.com/aws/aws-extensions-for-dotnet-cli) for a complete list of supported services.
+* [AWS Extensions for .NET CLI](https://github.com/aws/aws-extensions-for-dotnet-cli) which are AWS extensions to the .NET CLI focused on building .NET Core and ASP.NET Core applications and deploying them to AWS services including Amazon Elastic Container Service, AWS Elastic Beanstalk and AWS Lambda.
 
-> Note: this project uses Cake Build for build, test and packaging requirements, and don't come pre-configured withe the Amazon.Lambda.Tools. These are easiliy installed via the NET Core Global Tools.
-
-## Other Tools
+> Note: this project uses Cake Build for build, test and packaging requirements. You do not need to have the [AWS Extensions for .NET CLI](https://github.com/aws/aws-extensions-for-dotnet-cli) installed, but are free to do so if you which to use them. Version 3 of the Amazon.Lambda.Tools does require .NET Core 2.1 for installation, but can be used to deploy older versions of .NET Core.
 
 * [Cake Build](https://cakebuild.net/docs/editors/) Editor support for Visual Studio Code and Visual Studio.
 
 ## Other resources
 
-* Please see the [Learning Reasources](https://github.com/aws/aws-lambda-dotnet#learning-resources) section on the AWS 
+* Please see the [Learning Reasources](https://github.com/aws/aws-lambda-dotnet#learning-resources) section on the AWS Lambda for .NET Core GitHub repository.
 * [The official AWS X-Ray SDK for .NET](https://github.com/aws/aws-xray-sdk-dotnet)
 
 ## Build, Packaging, and Deployment
-This solution comes with a pre-configured Cake (C# Make) Build script which provides a cross-platform build automation system with a C# DSL for tasks such as compiling code, copying files and folders, running unit tests, compressing files and building NuGet packages.
+This solution comes with a pre-configured [Cake](https://cakebuild.net/)  (C# Make) Build script which provides a cross-platform build automation system with a C# DSL for tasks such as compiling code, copying files and folders, running unit tests, compressing files and building NuGet packages.
 
 The build.cake script has been set up to:
 
@@ -55,7 +53,7 @@ To package additional projects / functions add them to the build.cake script "pr
 ```csharp
 var projects = new []
 {
-    sourceDir.Path + "{{ cookiecutter.solution_name }}/{{ cookiecutter.solution_name }}.csproj",
+    sourceDir.Path + "{{ cookiecutter.project_name }}/{{ cookiecutter.project_name }}.csproj",
     sourceDir.Path + "{PROJECT_DIR}/{PROJECT_NAME}.csproj"
 };
 ```
