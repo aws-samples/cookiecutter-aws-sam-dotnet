@@ -5,24 +5,29 @@
 ## Requirements
 
 * [AWS CLI](https://aws.amazon.com/cli/) already configured with PowerUser permission
-* [.NET Core 2.0](https://www.microsoft.com/net/download/) installed
-* [AWS Extensions for .NET CLI](https://github.com/aws/aws-extensions-for-dotnet-cli) installed
-* [Docker](https://www.docker.com/community-edition) installed
 * [AWS SAM CLI](https://github.com/awslabs/aws-sam-local) installed
+* [.NET Core 2.1](https://www.microsoft.com/net/download/) installed. Please review the [Currently Supported Patch](https://github.com/aws/aws-lambda-dotnet#version-status) for your project type.
+* [Docker](https://www.docker.com/community-edition) installed
 
-## Recommended Tools
+
+## Recommended Tools for Visual Studio Users
 
 * [AWS Toolkit for Visual Studio](https://aws.amazon.com/visualstudio/)
+* [Amazon.Lambda.Tools](https://github.com/aws/aws-lambda-dotnet#amazonlambdatools). See also [AWS Extensions for .NET CLI ](https://github.com/aws/aws-extensions-for-dotnet-cli) for a complete list of supported services.
+
+> Note: this project uses Cake Build for build, test and packaging requirements, and don't come pre-configured withe the Amazon.Lambda.Tools. These are easiliy installed via the NET Core Global Tools.
+
+## Other Tools
+
 * [Cake Build](https://cakebuild.net/docs/editors/) Editor support for Visual Studio Code and Visual Studio.
 
 ## Other resources
 
-* [AWS Lambda for .NET Core](https://github.com/aws/aws-lambda-dotnet)
-* [Creating .NET Core AWS Lambda Projects without Visual Studio](https://aws.amazon.com/blogs/developer/creating-net-core-aws-lambda-projects-without-visual-studio/)
+* Please see the [Learning Reasources](https://github.com/aws/aws-lambda-dotnet#learning-resources) section on the AWS 
 * [The official AWS X-Ray SDK for .NET](https://github.com/aws/aws-xray-sdk-dotnet)
 
 ## Build, Packaging, and Deployment
-This solution comes with a pre-configured Cake (C# Make) script which provides a cross-platform build automation system with a C# DSL for tasks such as compiling code, copying files and folders, running unit tests, compressing files and building NuGet packages.
+This solution comes with a pre-configured Cake (C# Make) Build script which provides a cross-platform build automation system with a C# DSL for tasks such as compiling code, copying files and folders, running unit tests, compressing files and building NuGet packages.
 
 The build.cake script has been set up to:
 
