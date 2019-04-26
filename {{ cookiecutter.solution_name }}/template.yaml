@@ -42,10 +42,10 @@ Outputs:
       Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/proxy"
 {%- endif %}
 
-    {{ cookiecutter.project_name }}Arn:
+    {{ cookiecutter.project_name }}FunctionArn:
       Description: "{{ cookiecutter.project_name }} Lambda Function ARN"
-      Value: !GetAtt {{ cookiecutter.project_name }}.Arn
+      Value: !GetAtt {{ cookiecutter.project_name }}Function.Arn
 
-    {{ cookiecutter.project_name }}IamRole:
+    {{ cookiecutter.project_name }}FunctionIamRole:
       Description: "Implicit IAM Role created for {{ cookiecutter.project_name }} function"
-      Value: !GetAtt {{ cookiecutter.project_name }}Role.Arn
+      Value: !GetAtt {{ cookiecutter.project_name }}FunctionRole.Arn
