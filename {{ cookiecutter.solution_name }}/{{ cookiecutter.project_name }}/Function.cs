@@ -13,6 +13,9 @@ using Newtonsoft.Json;
 using Amazon.XRay.Recorder.Core;
 using Amazon.XRay.Recorder.Handlers.AwsSdk;
 {% endif %}
+ {%- if cookiecutter.include_sqs_events == "y" %}
+using Amazon.Lambda.SQSEvents;
+{% endif %}
 
 // Assembly attribute to enable the Lambda function's JSON input to be converted into a .NET class.
 [assembly: LambdaSerializer(typeof(Amazon.Lambda.Serialization.Json.JsonSerializer))]

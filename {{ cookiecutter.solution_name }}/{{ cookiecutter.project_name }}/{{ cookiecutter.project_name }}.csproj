@@ -14,7 +14,10 @@
 {%- if cookiecutter.include_xray == "y" %}
     <PackageReference Include="AWSXRayRecorder.Core" Version="2.5.1" />
     <PackageReference Include="AWSXRayRecorder.Handlers.AwsSdk" Version="2.6.1" />
-{% endif %}   
+{% endif %}
+{%- if cookiecutter.include_sqs_events == "y" %}
+    <PackageReference Include="Amazon.Lambda.SQSEvents" Version="1.1.0" />
+{% endif %}
   </ItemGroup>
   
 </Project>
