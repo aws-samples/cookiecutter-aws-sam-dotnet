@@ -1,6 +1,6 @@
 # Cookiecutter for AWS SAM and .NET
 
-A Cookiecutter template to create a Serverless App based on Serverless Application Model (SAM) and .NET Core 2.1
+A Cookiecutter template to create a Serverless App based on Serverless Application Model (SAM) and .NET Core 3.1
 
 > It is important to note that you should not try to `git clone` this project but use `cookiecutter` CLI instead as ``{{cookiecutter.project_slug}}`` will be rendered based on your input and therefore all variables and files will be rendered properly.
 
