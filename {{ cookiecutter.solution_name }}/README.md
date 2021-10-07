@@ -17,7 +17,7 @@
 
 > Note: this project uses Cake Build for build, test and packaging requirements. You do not need to have the [AWS Extensions for .NET CLI](https://github.com/aws/aws-extensions-for-dotnet-cli) installed, but are free to do so if you which to use them. Version 3 of the Amazon.Lambda.Tools does require .NET Core 2.1 for installation, but can be used to deploy older versions of .NET Core.
 
-* [Cake Build](https://cakebuild.net/docs/editors/) Editor support for Visual Studio Code and Visual Studio.
+* [Cake Build](https://cakebuild.net/docs/integrations/editors/) Editor support for Visual Studio Code and Visual Studio.
 
 ## Other resources
 
