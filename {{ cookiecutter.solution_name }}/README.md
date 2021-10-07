@@ -21,7 +21,7 @@
 
 ## Other resources
 
-* Please see the [Learning Reasources](https://github.com/aws/aws-lambda-dotnet#learning-resources) section on the AWS Lambda for .NET Core GitHub repository.
+* Please see the [Learning Reasources](https://github.com/aws/aws-lambda-dotnet/blob/master/Docs/Learning_Resources.md) section on the AWS Lambda for .NET Core GitHub repository.
 * [The official AWS X-Ray SDK for .NET](https://github.com/aws/aws-xray-sdk-dotnet)
 
 ## Build, Packaging, and Deployment
