@@ -116,6 +116,14 @@ sam deploy \
 {% if cookiecutter.include_apigw == "y" %}
 After deployment is complete you can run the following command to retrieve the API Gateway Endpoint URL:
 
+```
+aws cloudformation describe-stacks \
+    --stack-name {{ cookiecutter.solution_name.lower().replace(' ', '-') }} \
+    --query "Stacks[0].Outputs[?OutputKey=='ProjectURL'].OutputValue" --output text
+```
+
+Alternatively, you can see other details about your stack:
+
 ```bash
 aws cloudformation describe-stacks \
     --stack-name {{ cookiecutter.solution_name.lower().replace(' ', '-') }} \
