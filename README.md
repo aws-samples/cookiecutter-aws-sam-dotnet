@@ -41,7 +41,7 @@ Option | Description
 
 ## Credits
 
-* This project has been generated with [Cookiecutter](https://github.com/audreyr/cookiecutter)
+* This project has been generated with [Cookiecutter](https://github.com/cookiecutter/cookiecutter)
 * This project has been modelled on the [Cookiecutter SAM for Python Lambda functions](https://github.com/aws-samples/cookiecutter-aws-sam-python)
 
 ## License Summary
