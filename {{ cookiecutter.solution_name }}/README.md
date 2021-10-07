@@ -7,7 +7,7 @@
 * [AWS CLI](https://aws.amazon.com/cli/) already configured with PowerUser permission
 * [AWS SAM CLI](https://github.com/awslabs/aws-sam-local) installed
 * [.NET Core 2.1](https://dotnet.microsoft.com/download/dotnet/2.1) installed. 
-* [Docker](https://www.docker.com/community-edition) installed
+* [Docker](https://www.docker.com/get-started) installed
 
 
 ## Recommended Tools for Visual Studio / Visual Studio Code Users
