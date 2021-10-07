@@ -6,7 +6,7 @@
 
 * [AWS CLI](https://aws.amazon.com/cli/) already configured with PowerUser permission
 * [AWS SAM CLI](https://github.com/awslabs/aws-sam-local) installed
-* [.NET Core 2.1](https://www.microsoft.com/net/download/) installed. Please review the [Currently Supported Patch](https://github.com/aws/aws-lambda-dotnet#version-status) for your project type.
+* [.NET Core 2.1](https://dotnet.microsoft.com/download/dotnet/2.1) installed. Please review the [Currently Supported Patch](https://github.com/aws/aws-lambda-dotnet#version-status) for your project type.
 * [Docker](https://www.docker.com/community-edition) installed
 
 
