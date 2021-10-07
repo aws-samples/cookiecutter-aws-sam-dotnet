@@ -22,7 +22,7 @@ sudo yum install dotnet-sdk-3.1
 # Install Mono
 sudo amazon-linux-extras install mono
 # Install Cake
-dotnet add <Project Name> package Cake --version 1.2.0  
+dotnet add {{ cookiecutter.project_name }} package Cake --version 1.2.0  
 ```
 > Note: make sure your AWS Cloud9 environment has enough storage space for your project and its dependencies. [How to grow storage space of an AWS Cloud9 environment](https://docs.aws.amazon.com/cloud9/latest/user-guide/move-environment.html)
 
