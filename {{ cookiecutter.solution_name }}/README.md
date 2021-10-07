@@ -6,9 +6,10 @@
 
 * [AWS CLI](https://aws.amazon.com/cli/) already configured with PowerUser permission
 * [AWS SAM CLI](https://github.com/awslabs/aws-sam-local) installed
-* [.NET Core 2.1](https://dotnet.microsoft.com/download/dotnet/2.1) installed. 
+* [.NET Core 3.1](https://dotnet.microsoft.com/download/dotnet/3.1) installed. 
 * [Docker](https://www.docker.com/get-started) installed
 * [Mono] installed
+> Note: it is possible to use this with the deprecated .NET Core version 2.1. In this case, make sure you update the .csproj files to replace the TargetFramework attribute to the netcoreapp2.1 value.
 
 ## Usage on AWS Cloud9
 To use this on an Amazon Linux 2 AWS Cloud9 instance, install the dependencies as such:
