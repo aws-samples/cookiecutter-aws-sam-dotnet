@@ -8,7 +8,22 @@
 * [AWS SAM CLI](https://github.com/awslabs/aws-sam-local) installed
 * [.NET Core 2.1](https://dotnet.microsoft.com/download/dotnet/2.1) installed. 
 * [Docker](https://www.docker.com/get-started) installed
+* [Mono] installed
 
+## Usage on AWS Cloud9
+To use this on an Amazon Linux 2 AWS Cloud9 instance, install the dependencies as such:
+```bash
+# Update packages
+sudo yum update -y
+# Install .NET Core
+sudo rpm -Uvh https://packages.microsoft.com/config/centos/7/packages-microsoft-prod.rpm
+sudo yum install dotnet-sdk-3.1
+# Install Mono
+sudo amazon-linux-extras install mono
+# Install Cake
+dotnet add <Project Name> package Cake --version 1.2.0  
+```
+> Note: make sure your AWS Cloud9 environment has enough storage space for your project and its dependencies. [How to grow storage space of an AWS Cloud9 environment](https://docs.aws.amazon.com/cloud9/latest/user-guide/move-environment.html)
 
 ## Recommended Tools for Visual Studio / Visual Studio Code Users
 
