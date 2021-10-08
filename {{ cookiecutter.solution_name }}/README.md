@@ -6,9 +6,25 @@
 
 * [AWS CLI](https://aws.amazon.com/cli/) already configured with PowerUser permission
 * [AWS SAM CLI](https://github.com/awslabs/aws-sam-local) installed
-* [.NET Core 2.1](https://www.microsoft.com/net/download/) installed. Please review the [Currently Supported Patch](https://github.com/aws/aws-lambda-dotnet#version-status) for your project type.
-* [Docker](https://www.docker.com/community-edition) installed
+* [.NET Core 3.1](https://dotnet.microsoft.com/download/dotnet/3.1) installed. 
+* [Docker](https://www.docker.com/get-started) installed
+* [Mono] installed
+> Note: it is possible to use this with the deprecated .NET Core version 2.1. In this case, make sure you update the .csproj files to replace the TargetFramework attribute to the netcoreapp2.1 value.
 
+## Usage on AWS Cloud9
+To use this on an Amazon Linux 2 AWS Cloud9 instance, install the dependencies as such:
+```bash
+# Update packages
+sudo yum update -y
+# Install .NET Core
+sudo rpm -Uvh https://packages.microsoft.com/config/centos/7/packages-microsoft-prod.rpm
+sudo yum install dotnet-sdk-3.1
+# Install Mono
+sudo amazon-linux-extras install mono
+# Install Cake
+dotnet add {{ cookiecutter.project_name }} package Cake --version 1.2.0  
+```
+> Note: make sure your AWS Cloud9 environment has enough storage space for your project and its dependencies. [How to grow storage space of an AWS Cloud9 environment](https://docs.aws.amazon.com/cloud9/latest/user-guide/move-environment.html)
 
 ## Recommended Tools for Visual Studio / Visual Studio Code Users
 
@@ -17,11 +33,11 @@
 
 > Note: this project uses Cake Build for build, test and packaging requirements. You do not need to have the [AWS Extensions for .NET CLI](https://github.com/aws/aws-extensions-for-dotnet-cli) installed, but are free to do so if you which to use them. Version 3 of the Amazon.Lambda.Tools does require .NET Core 2.1 for installation, but can be used to deploy older versions of .NET Core.
 
-* [Cake Build](https://cakebuild.net/docs/editors/) Editor support for Visual Studio Code and Visual Studio.
+* [Cake Build](https://cakebuild.net/docs/integrations/editors/) Editor support for Visual Studio Code and Visual Studio.
 
 ## Other resources
 
-* Please see the [Learning Reasources](https://github.com/aws/aws-lambda-dotnet#learning-resources) section on the AWS Lambda for .NET Core GitHub repository.
+* Please see the [Learning Reasources](https://github.com/aws/aws-lambda-dotnet/blob/master/Docs/Learning_Resources.md) section on the AWS Lambda for .NET Core GitHub repository.
 * [The official AWS X-Ray SDK for .NET](https://github.com/aws/aws-xray-sdk-dotnet)
 
 ## Build, Packaging, and Deployment
@@ -99,6 +115,14 @@ sam deploy \
 
 {% if cookiecutter.include_apigw == "y" %}
 After deployment is complete you can run the following command to retrieve the API Gateway Endpoint URL:
+
+```
+aws cloudformation describe-stacks \
+    --stack-name {{ cookiecutter.solution_name.lower().replace(' ', '-') }} \
+    --query "Stacks[0].Outputs[?OutputKey=='ProjectURL'].OutputValue" --output text
+```
+
+Alternatively, you can see other details about your stack:
 
 ```bash
 aws cloudformation describe-stacks \

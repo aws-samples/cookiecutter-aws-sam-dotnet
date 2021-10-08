@@ -8,7 +8,8 @@ Description: >
 # More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
 Globals:
     Function:
-        Runtime: dotnetcore2.1
+        # Change this to dotnetcore2.1 if you want to run .NET Core 2.1 code
+        Runtime: dotnetcore3.1
         Timeout: 10
 {%- if cookiecutter.include_safe_deployment == "y" %}
         AutoPublishAlias: live # More info about Safe Deployments: https://github.com/awslabs/serverless-application-model/blob/master/docs/safe_lambda_deployments.rst
