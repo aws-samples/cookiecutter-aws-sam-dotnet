@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27703.2026
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30114.105
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "{{ cookiecutter.project_name }}", "{{ cookiecutter.project_name }}\{{ cookiecutter.project_name }}.csproj", "{1DC84BE8-8F1B-4E6F-BAC5-5A286C546031}"
 EndProject
@@ -12,11 +12,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{9F482E0A-E
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{296D1A28-AD46-4DD3-866F-2BCAB14A7E4B}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SAM", "SAM", "{296D1A28-AD46-4DD3-866F-2BCAB14A7E4B}"
 	ProjectSection(SolutionItems) = preProject
-		build.cake = build.cake
-		build.ps1 = build.ps1
-		build.sh = build.sh
 		template.yaml = template.yaml
 	EndProjectSection
 EndProject

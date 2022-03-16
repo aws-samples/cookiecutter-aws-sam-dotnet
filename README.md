@@ -1,43 +1,59 @@
-# Cookiecutter for AWS SAM and .NET
+# AWS SAM Cookiecutter for .NET Lambda functions with Powertools
 
-A Cookiecutter template to create a Serverless App based on Serverless Application Model (SAM) and .NET Core 3.1
+A Cookiecutter template to create a Serverless application using the AWS Serverless Application Model Command Line Interface (AWS SAM CLI) and .NET 6.
 
-> It is important to note that you should not try to `git clone` this project but use `cookiecutter` CLI instead as ``{{cookiecutter.project_slug}}`` will be rendered based on your input and therefore all variables and files will be rendered properly.
+This template follows the default directory structure of Visual Studio solutions (including a test project) and comes pre-installed with [AWS Lambda Powertools for .NET](https://github.com/awslabs/aws-lambda-powertools-dotnet) utilities for Logging, Metrics and Tracing.
+
+> Do not `git clone` this project unless you want to fork it to create your own project template. To create a Serverless application from this template follow the instructions below and use the AWS SAM CLI instead.
 
 ## Requirements
 
-Install `cookiecutter` command line: 
+### Cookiecutter install
 
-**Pip users**:
+Install `cookiecutter` command line:
 
-* `pip install cookiecutter`
+* Pip users: `pip install cookiecutter`
+* Homebrew users: `brew install cookiecutter`
+* Windows or Pipenv users: `pipenv install cookiecutter`
 
-**Homebrew users**:
+### AWS SAM CLI install
 
-* `brew install cookiecutter`
+To use the AWS SAM CLI, you need the following tools.
 
-**Windows or Pipenv users**:
+* AWS SAM CLI - [Install the AWS SAM CLI](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-install.html)
+* Docker - [Install Docker community edition](https://hub.docker.com/search/?type=edition&offering=community)
 
-* `pipenv install cookiecutter`
+### Microsoft .NET 6 install
 
-**NOTE**: [`Pipenv`](https://github.com/pypa/pipenv) is the new and recommended Python packaging tool that works across multiple platforms and makes Windows a first-class citizen.
+You will need the following for local testing.
+
+* .NET 6.0 - [Install .NET 6.0](https://www.microsoft.com/net/download)
 
 ## Usage
 
-Generate a new SAM based Serverless App: `cookiecutter gh:aws-samples/cookiecutter-aws-sam-dotnet`. 
+The `sam init` command initializes a serverless application with an AWS SAM template, or a template or application you specify. Use the `location` parameter to pass the location of this project
 
-You'll be prompted a few questions to help this cookiecutter template to scaffold this project and after its completed you should see a new folder at your current path with the name of the project you gave as input.
+```bash
+sam init --location gh:aws-samples/cookiecutter-aws-sam-dotnet
+```
 
-**NOTE**: After you understand how cookiecutter works (cookiecutter.json, mainly), you can fork this repo and apply your own mechanisms to accelerate your development process and this can be followed for any programming language and OS.
+alternatively you can use Cookiecutter command:
+
+```bash
+cookiecutter gh:aws-samples/cookiecutter-aws-sam-dotnet`. 
+```
+
+You'll be prompted a few questions to help this cookiecutter template to scaffold this project. After it's completed, you should see a new folder at your current path with the name of the project you specified as input.
+
+> **NOTE**: After you understand how cookiecutter works (cookiecutter.json, mainly), you can fork this repo and apply your own mechanisms to accelerate your development process and this can be followed for any programming language and OS.
 
 ## Options
 
-
 Option | Description
-------------------------------------------------- | ---------------------------------------------------------------------------------
-`include_apigw` | Includes sample code for API Gateway Proxy integration for Lambda and a Catch All method in SAM as a starting point
-`include_xray` | Includes both sample code for getting started with AWS X-Ray and adds necessary permission and `Tracing` to your function
-`include_safe_deployment` | Sends by default 10% of traffic for every 1 minute to a newly deployed function using [CodeDeploy + SAM integration](https://github.com/awslabs/serverless-application-model/blob/master/docs/safe_lambda_deployments.rst) - Linear10PercentEvery1Minute
+------------------------------------------------- | ---------------------------------------------------------------------------------|
+`solution_name` | Name of the Visual Studio solution file |
+`project_name` | Name of the Visual Studio project |
+`include_safe_deployment` | Sends by default 10% of traffic for every 1 minute to a newly deployed function using [CodeDeploy + SAM integration](https://github.com/awslabs/serverless-application-model/blob/master/docs/safe_lambda_deployments.rst) - Linear10PercentEvery1Minute |
 
 ## Credits
 
