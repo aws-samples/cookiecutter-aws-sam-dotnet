@@ -1,8 +1,5 @@
 {
     "solution_name": "Solution Name",
     "project_name": "Name of the project",
-    "project_short_description": "A short description of the project",
-    "include_apigw": "y",
-    "include_xray": "y",
     "include_safe_deployment": "y"
 }
