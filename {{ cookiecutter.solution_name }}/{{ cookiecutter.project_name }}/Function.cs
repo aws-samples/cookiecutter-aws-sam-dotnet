@@ -126,12 +126,13 @@ public class LookupRecord
     /// <param name="lookupId">Id of the lookup</param>
     /// <param name="greeting">Greeting phrase</param>
     /// <param name="ipAddress">IP address</param>
+    /// <param name="requestExecutionTime">Lookup execution time</param>
     public LookupRecord(string? lookupId, string? greeting, string? ipAddress, int requestExecutionTime)
     {
         LookupId = lookupId;
         Greeting = greeting;
         IpAddress = ipAddress;
-        RequestExecutionTime = requestExecutionTime
+        RequestExecutionTime = requestExecutionTime;
     }
     
     public string? LookupId { get; set; }
