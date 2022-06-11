@@ -6,14 +6,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "{{ cookiecutter.project_nam
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "{{ cookiecutter.project_name }}.Tests", "{{ cookiecutter.project_name }}.Tests\{{ cookiecutter.project_name }}.Tests.csproj", "{6B1405E9-CA6B-4812-B60A-CB81C9580A77}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{9F482E0A-E65C-40B9-AB4A-B25EC0F2139A}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionFolder", "SolutionFolder", "{982EB903-16B2-4C5C-9E9C-F05142F5CD07}"
 	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
 		LICENSE = LICENSE
 		README.md = README.md
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SAM", "SAM", "{296D1A28-AD46-4DD3-866F-2BCAB14A7E4B}"
-	ProjectSection(SolutionItems) = preProject
 		template.yaml = template.yaml
 	EndProjectSection
 EndProject

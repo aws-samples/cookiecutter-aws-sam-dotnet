@@ -18,15 +18,7 @@ Globals:
         MemorySize: 256
         Runtime: dotnet6
         Tracing: Active # https://docs.aws.amazon.com/lambda/latest/dg/lambda-x-ray.html
-        Environment:
-            Variables:
-                POWERTOOLS_SERVICE_NAME: powertools-dotnet-metrics-sample # This can also be set using the Metrics decorator on your handler [Metrics(Namespace = "aws-lambda-powertools"]
-                POWERTOOLS_LOG_LEVEL: Debug
-                POWERTOOLS_LOGGER_SAMPLE_RATE: 0.1
-                POWERTOOLS_LOGGER_CASE: SnakeCase # Allowed values are: CamelCase, PascalCase and SnakeCase (default)
-                POWERTOOLS_METRICS_NAMESPACE: AWSLambdaPowertools # This can also be set using the Metrics decorator on your handler [Metrics(Namespace = "aws-lambda-powertools"]
-                POWERTOOLS_TRACER_CAPTURE_RESPONSE: true
-                POWERTOOLS_TRACER_CAPTURE_ERROR: true     # To disable tracing (CaptureMode = TracingCaptureMode.Disabled)
+
     {%- if cookiecutter.include_safe_deployment == "y" %}
         AutoPublishAlias: live # More info about Safe Deployments: https://github.com/awslabs/serverless-application-model/blob/master/docs/safe_lambda_deployments.rst
         DeploymentPreference:
