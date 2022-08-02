@@ -1,78 +1,68 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
-Description: >
-    {{ cookiecutter.project_name }}
+Description: {{ cookiecutter.project_name }}
 
 # More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
 Globals:
-    Api:
-        EndpointConfiguration: REGIONAL
-        TracingEnabled: true
-        Cors:                               # https://awslabs.github.io/aws-lambda-powertools-python/latest/core/event_handler/api_gateway/#cors
-            # AllowOrigin: "'https://example.com'"
-            AllowOrigin: "'*'"  # Dev only
-            AllowHeaders: "'Content-Type,Authorization,X-Amz-Date'"
-            MaxAge: "'300'"
-    Function:
-        Timeout: 10
-        MemorySize: 256
-        Runtime: dotnet6
-        Tracing: Active # https://docs.aws.amazon.com/lambda/latest/dg/lambda-x-ray.html
-        Environment:
-            Variables:
-                POWERTOOLS_SERVICE_NAME: powertools-dotnet-metrics-sample # This can also be set using the Metrics decorator on your handler [Metrics(Namespace = "aws-lambda-powertools"]
-                POWERTOOLS_LOG_LEVEL: Debug
-                POWERTOOLS_LOGGER_SAMPLE_RATE: 0.1
-                POWERTOOLS_LOGGER_CASE: SnakeCase # Allowed values are: CamelCase, PascalCase and SnakeCase (default)
-                POWERTOOLS_METRICS_NAMESPACE: AWSLambdaPowertools # This can also be set using the Metrics decorator on your handler [Metrics(Namespace = "aws-lambda-powertools"]
-                POWERTOOLS_TRACER_CAPTURE_RESPONSE: true
-                POWERTOOLS_TRACER_CAPTURE_ERROR: true     # To disable tracing (CaptureMode = TracingCaptureMode.Disabled)
-    {%- if cookiecutter.include_safe_deployment == "y" %}
-        AutoPublishAlias: live # More info about Safe Deployments: https://github.com/awslabs/serverless-application-model/blob/master/docs/safe_lambda_deployments.rst
-        DeploymentPreference:
-            Type: Linear10PercentEvery1Minute {% endif %}
+  Api:
+    EndpointConfiguration: REGIONAL
+    TracingEnabled: true
+    Cors:                               # https://awslabs.github.io/aws-lambda-powertools-python/latest/core/event_handler/api_gateway/#cors
+        # AllowOrigin: "'https://example.com'"
+        AllowOrigin: "'*'"  # Dev only
+        AllowHeaders: "'Content-Type,Authorization,X-Amz-Date'"
+        MaxAge: "'300'"
+  Function:
+      Timeout: 10
+      MemorySize: 256
+      Runtime: dotnet6
+      Tracing: Active # https://docs.aws.amazon.com/lambda/latest/dg/lambda-x-ray.html
+      Environment:
+        Variables:
+          POWERTOOLS_SERVICE_NAME: powertools-dotnet-metrics-sample # This can also be set using the Metrics decorator on your handler [Metrics(Namespace = "aws-lambda-powertools"]
+          POWERTOOLS_LOG_LEVEL: Debug
+          POWERTOOLS_LOGGER_SAMPLE_RATE: 0.1
+          POWERTOOLS_LOGGER_CASE: SnakeCase # Allowed values are: CamelCase, PascalCase and SnakeCase (default)
+          POWERTOOLS_METRICS_NAMESPACE: AWSLambdaPowertools # This can also be set using the Metrics decorator on your handler [Metrics(Namespace = "aws-lambda-powertools"]
+          POWERTOOLS_TRACER_CAPTURE_RESPONSE: true
+          POWERTOOLS_TRACER_CAPTURE_ERROR: true     # To disable tracing (CaptureMode = TracingCaptureMode.Disabled)
+  {%- if cookiecutter.include_safe_deployment == "y" %}
+      AutoPublishAlias: live # More info about Safe Deployments: https://github.com/awslabs/serverless-application-model/blob/master/docs/safe_lambda_deployments.rst
+      DeploymentPreference:
+        Type: Linear10PercentEvery1Minute{% endif %}
 
 Resources:
+  {{ cookiecutter.project_name }}Function:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      Description: {{ cookiecutter.project_name }} function
+      CodeUri: {{ cookiecutter.project_name }}
+      Handler: {{ cookiecutter.project_name }}::{{ cookiecutter.project_name }}.Function::FunctionHandler
+      Policies:
+        - AWSXRayDaemonWriteAccess
+      Events:
+        HelloWorld:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+              Path: /hello
+              Method: get
+      Tags:
+          LambdaPowertools: dotnet
 
-    {{ cookiecutter.project_name }}Function:
-        Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
-        Properties:
-            
-            CodeUri: {{ cookiecutter.project_name }}
-            Handler: {{ cookiecutter.project_name }}::{{ cookiecutter.project_name }}.Function::FunctionHandler
-            Description: {{ cookiecutter.project_name }} function
-            Events:
-                HelloWorld:
-                Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
-                Properties:
-                    Path: /hello
-                    Method: get
-            Tags:
-                LambdaPowertools: dotnet
+  {{ cookiecutter.project_name }}FunctionLogGroup:
+    Type: "AWS::Logs::LogGroup"
+    DeletionPolicy: Delete
+    Properties:
+      RetentionInDays: 7
+      LogGroupName: !Sub 
+      - '/aws/lambda/${Function}'
+      - Function: !Ref {{ cookiecutter.project_name }}Function
 
-    {{ cookiecutter.project_name }}FunctionRole:
-        Type: "AWS::IAM::Role"
-        Properties:
-        Path: !Join ["", ["/", !Ref "AWS::StackName", "/"]]
-        ManagedPolicyArns:
-            - "arn:aws:iam::aws:policy/AWSXrayWriteOnlyAccess"
-            - "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
-        AssumeRolePolicyDocument:
-            Version: "2012-10-17"
-            Statement:
-            -
-                Sid: "AllowLambdaServiceToAssumeRole"
-                Effect: "Allow"
-                Action:
-                - "sts:AssumeRole"
-                Principal:
-                Service:
-                    - "lambda.amazonaws.com"
 Outputs:
 
     {{ cookiecutter.project_name }}Api:
       Description: "API Gateway endpoint URL for Prod environment for {{ cookiecutter.project_name }} Function"
-      Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/proxy"
+      Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/hello"
 
     {{ cookiecutter.project_name }}FunctionArn:
       Description: "{{ cookiecutter.project_name }} Lambda Function ARN"
