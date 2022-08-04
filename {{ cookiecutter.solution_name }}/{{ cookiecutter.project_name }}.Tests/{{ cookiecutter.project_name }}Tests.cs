@@ -48,7 +48,6 @@ public class {{ cookiecutter.project_name }}Tests
         var requestId = Guid.NewGuid().ToString("D");
         var accountId = Guid.NewGuid().ToString("D");
         var location = "192.158. 1.38";
-        Environment.SetEnvironmentVariable("POWERTOOLS_METRICS_NAMESPACE","AWSLambdaPowertools");
 
         var handlerMock = new Mock<HttpMessageHandler>();
         handlerMock

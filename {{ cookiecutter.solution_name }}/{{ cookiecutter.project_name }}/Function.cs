@@ -24,22 +24,20 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Amazon.Lambda.APIGatewayEvents;
 using Amazon.Lambda.Core;
-using Amazon.Lambda.Serialization.SystemTextJson;
 using Amazon.XRay.Recorder.Handlers.AwsSdk;
-using AWS.Lambda.Powertools.Logging;
-using AWS.Lambda.Powertools.Metrics;
-using AWS.Lambda.Powertools.Tracing;
 
 
 // Assembly attribute to enable the Lambda function's JSON input to be converted into a .NET class.
-[assembly: LambdaSerializer(typeof(DefaultLambdaJsonSerializer))]
+[assembly: LambdaSerializer(typeof(Amazon.Lambda.Serialization.SystemTextJson.DefaultLambdaJsonSerializer))]
+
 namespace {{ cookiecutter.project_name }};
+
 public class Function
 {
-        private static HttpClient? _httpClient;
+    private static HttpClient? _httpClient;
 
     /// <summary>
-    /// Default constructor that Lambda will invoke.
+    ///     Default constructor that Lambda will invoke.
     /// </summary>
     public Function()
     {
@@ -48,7 +46,7 @@ public class Function
     }
 
     /// <summary>
-    /// Test constructor
+    ///     Test constructor
     /// </summary>
     public Function(HttpClient httpClient)   
     {
@@ -56,31 +54,24 @@ public class Function
     }
 
     /// <summary>
-    /// Lambda Handler
+    ///     Lambda Handler
     /// </summary>
     /// <param name="apigwProxyEvent">API Gateway Proxy event</param>
     /// <param name="context">AWS Lambda context</param>
     /// <returns>API Gateway Proxy response</returns>
-    [Logging(LogEvent = true)]
-    [Metrics(CaptureColdStart = true)]
-    [Tracing(CaptureMode = TracingCaptureMode.ResponseAndError)]
     public async Task<APIGatewayProxyResponse> FunctionHandler(APIGatewayProxyRequest apigwProxyEvent, ILambdaContext context)
     {
 
         var requestContextRequestId = apigwProxyEvent.RequestContext.RequestId;
 
-        Logger.LogInformation("Getting ip address from external service");
+        Console.WriteLine("Getting ip address from external service");
         
         var watch = Stopwatch.StartNew();
         var location = await GetCallingIp().ConfigureAwait(false);
         watch.Stop();
-
-        // Add metrics to record response time and successful locations
-        Metrics.AddMetric("ElapsedExecutionTime", watch.ElapsedMilliseconds, MetricUnit.Milliseconds);
-        Metrics.AddMetric("SuccessfulLocations", 1, MetricUnit.Count);
         
-        var lookupRecord = new LookupRecord(lookupId: requestContextRequestId,
-            greeting: "Hello AWS Lambda Powertools for .NET", ipAddress: location);
+        var lookupRecord = new LookupRecord(requestContextRequestId,
+            "Hello AWS Lambda Powertools for .NET", location, (int)watch.ElapsedMilliseconds);
 
         return new APIGatewayProxyResponse
         {
@@ -91,10 +82,9 @@ public class Function
     }
 
     /// <summary>
-    /// Calls location api to return IP address
+    ///  Calls location api to return IP address
     /// </summary>
     /// <returns>IP address string</returns>
-    [Tracing(SegmentName = "Location service")]
     private static async Task<string?> GetCallingIp()
     {
         if (_httpClient == null) return "0.0.0.0";
@@ -103,25 +93,25 @@ public class Function
 
         try
         {
-            Logger.LogInformation("Calling Check IP API");
+            Console.WriteLine("Calling Check IP API");
 
             var response = await _httpClient.GetStringAsync("https://checkip.amazonaws.com/").ConfigureAwait(false);
             var ip = response.Replace("\n", "");
 
-            Logger.LogInformation($"API response returned {ip}");
+            Console.WriteLine($"API response returned {ip}");
 
             return ip;
         }
         catch (Exception ex)
         {
-            Logger.LogError(ex);
+            Console.WriteLine(ex);
             throw;
         }
     }
 }
 
 /// <summary>
-/// LookupRecord class represents the data structure of location lookup
+///  LookupRecord class represents the data structure of location lookup
 /// </summary>
 [Serializable]
 public class LookupRecord
@@ -136,15 +126,18 @@ public class LookupRecord
     /// <param name="lookupId">Id of the lookup</param>
     /// <param name="greeting">Greeting phrase</param>
     /// <param name="ipAddress">IP address</param>
-    public LookupRecord(string? lookupId, string? greeting, string? ipAddress)
+    /// <param name="requestExecutionTime">Lookup execution time</param>
+    public LookupRecord(string? lookupId, string? greeting, string? ipAddress, int requestExecutionTime)
     {
         LookupId = lookupId;
         Greeting = greeting;
         IpAddress = ipAddress;
+        RequestExecutionTime = requestExecutionTime;
     }
-
+    
     public string? LookupId { get; set; }
     public string? Greeting { get; set; }
     public string? IpAddress { get; set; }
+    public int RequestExecutionTime { get; set; }
 }
 
