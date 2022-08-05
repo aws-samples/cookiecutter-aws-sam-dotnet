@@ -2,7 +2,7 @@
 
 A Cookiecutter template to create a Serverless application using the AWS Serverless Application Model Command Line Interface (AWS SAM CLI) and .NET 6.
 
-This template follows the default directory structure of Visual Studio solutions (including a test project).
+This template follows the default directory structure of Visual Studio solutions (including a test project), and also includes core utilities - Logging, Metrics and Tracing - for the [AWS Lambda Powertools for .NET](https://github.com/awslabs/aws-lambda-powertools-dotnet). To see how to leverage all of Powertools functionality vistit the documentation https://awslabs.github.io/aws-lambda-powertools-dotnet/ 
 
 > Do not `git clone` this project unless you want to fork it to create your own project template. To create a Serverless application from this template follow the instructions below and use the AWS SAM CLI instead.
 
